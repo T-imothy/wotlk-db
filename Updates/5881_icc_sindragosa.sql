@@ -110,3 +110,103 @@ INSERT INTO `creature_spell_list`
 (3753401,2,36922,0,-1,2,0,100,1,20000,25000,25000,30000,'Spinestalker - Bellowing Roar');
 
 COMMIT;
+
+-- Final tested ICC data: sindragosa
+START TRANSACTION;
+
+-- BroadcastText records absent from the base world database.
+INSERT IGNORE INTO `broadcast_text`
+(`Id`,`Text`,`Text1`,`ChatTypeID`,`LanguageID`,`ConditionID`,`EmotesID`,`Flags`,
+ `SoundEntriesID1`,`SoundEntriesID2`,`EmoteID1`,`EmoteID2`,`EmoteID3`,
+ `EmoteDelay1`,`EmoteDelay2`,`EmoteDelay3`,`VerifiedBuild`) VALUES
+(37109,'','Now, feel my master\'s limitless power and despair!',1,0,0,0,0,17016,0,0,0,0,0,0,0,12340);
+
+UPDATE `broadcast_text` SET `ChatTypeID`=1
+WHERE `Id` IN (37109,37133,37134,37136,37137,37138,37139,37140,37511,38550);
+
+UPDATE `broadcast_text`
+SET `SoundEntriesID1` = CASE `Id`
+    WHEN 37109 THEN 17016
+    WHEN 37133 THEN 17008
+    WHEN 37134 THEN 17009
+    WHEN 37136 THEN 17012
+    WHEN 37137 THEN 17013
+    WHEN 37138 THEN 17014
+    WHEN 37139 THEN 17010
+    WHEN 37140 THEN 17011
+    WHEN 37511 THEN 17007
+    WHEN 38550 THEN 17015
+    ELSE `SoundEntriesID1`
+END
+WHERE `Id` IN (37109,37133,37134,37136,37137,37138,37139,37140,37511,38550);
+
+-- Four-mode reward bindings and pools.
+UPDATE `creature_template` SET `LootId`=`Entry` WHERE `Entry` IN (36853,38265,38266,38267);
+DELETE FROM `creature_loot_template` WHERE `entry` IN (36853,38265,38266,38267);
+INSERT INTO `creature_loot_template`
+(`entry`,`item`,`ChanceOrQuestChance`,`groupid`,`mincountOrRef`,`maxcount`,`condition_id`,`comments`) VALUES
+(36853,49426,100,0,2,2,0,'Sindragosa - Emblem of Frost'),
+(36853,51026,-100,0,1,1,0,'Sindragosa - Crystalline Essence of Sindragosa'),
+(36853,34237,100,0,-34237,2,0,'Sindragosa - (ReferenceTable)'),
+(38265,49426,100,0,2,2,0,'Sindragosa (1) - Emblem of Frost'),
+(38265,49908,38,0,1,1,0,'Sindragosa (1) - Primordial Saronite'),
+(38265,50274,-38,0,1,1,0,'Sindragosa (1) - Shadowfrost Shard'),
+(38265,51027,-100,0,1,1,0,'Sindragosa (1) - Crystalline Essence of Sindragosa'),
+(38265,34249,100,0,-34249,1,0,'Sindragosa (1) - (ReferenceTable)'),
+(38265,34278,100,0,-34278,2,0,'Sindragosa (1) - (ReferenceTable)'),
+(38266,49426,100,0,2,2,0,'Sindragosa (2) - Emblem of Frost'),
+(38266,49908,38,0,1,1,0,'Sindragosa (2) - Primordial Saronite'),
+(38266,51026,-100,0,1,1,0,'Sindragosa (2) - Crystalline Essence of Sindragosa'),
+(38266,34261,100,0,-34261,2,0,'Sindragosa (2) - (ReferenceTable)'),
+(38266,34278,100,0,-34278,1,0,'Sindragosa (2) - (ReferenceTable)'),
+(38267,49426,100,0,2,2,0,'Sindragosa (3) - Emblem of Frost'),
+(38267,49908,38,0,1,1,0,'Sindragosa (3) - Primordial Saronite'),
+(38267,50274,-68,0,1,1,0,'Sindragosa (3) - Shadowfrost Shard'),
+(38267,51027,-100,0,1,1,0,'Sindragosa (3) - Crystalline Essence of Sindragosa'),
+(38267,34273,100,0,-34273,1,0,'Sindragosa (3) - (ReferenceTable)'),
+(38267,34278,100,0,-34278,2,0,'Sindragosa (3) - (ReferenceTable)'),
+(38267,34279,100,0,-34279,1,0,'Sindragosa (3) - (ReferenceTable)');
+DELETE FROM `reference_loot_template` WHERE `entry` IN (34237,34249,34261,34273);
+INSERT INTO `reference_loot_template`
+(`entry`,`item`,`ChanceOrQuestChance`,`groupid`,`mincountOrRef`,`maxcount`,`condition_id`,`comments`) VALUES
+(34237,51779,0,1,1,1,0,'Rimetooth Pendant'),
+(34237,51782,0,1,1,1,0,'Etched Dragonbone Girdle'),
+(34237,51783,0,1,1,1,0,'Vambraces of the Frost Wyrm Queen'),
+(34237,51784,0,1,1,1,0,'Splintershard'),
+(34237,51785,0,1,1,1,0,'Wyrmwing Treads'),
+(34237,51786,0,1,1,1,0,'Legplates of Aetheric Strife'),
+(34237,51787,0,1,1,1,0,'Scourge Fanged Stompers'),
+(34237,51788,0,1,1,1,0,'Bleak Coldarra Carver'),
+(34237,51789,0,1,1,1,0,'Icicle Shapers'),
+(34237,51790,0,1,1,1,0,'Robes of Azure Downfall'),
+(34237,51791,0,1,1,1,0,'Lost Pavise of the Blue Flight'),
+(34237,51792,0,1,1,1,0,'Shoulderguards of Crystalline Bone'),
+(34249,50360,0,1,1,1,0,'Phylactery of the Nameless Lich'),
+(34249,50361,0,1,1,1,0,'Sindragosa''s Flawless Fang'),
+(34249,50421,0,1,1,1,0,'Sindragosa''s Cruel Claw'),
+(34249,50423,0,1,1,1,0,'Sundial of Eternal Dusk'),
+(34249,50424,0,1,1,1,0,'Memory of Malygos'),
+(34261,51811,0,1,1,1,0,'Shoulderguards of Crystalline Bone'),
+(34261,51812,0,1,1,1,0,'Lost Pavise of the Blue Flight'),
+(34261,51813,0,1,1,1,0,'Robes of Azure Downfall'),
+(34261,51814,0,1,1,1,0,'Icicle Shapers'),
+(34261,51815,0,1,1,1,0,'Bleak Coldarra Carver'),
+(34261,51816,0,1,1,1,0,'Scourge Fanged Stompers'),
+(34261,51817,0,1,1,1,0,'Legplates of Aetheric Strife'),
+(34261,51818,0,1,1,1,0,'Wyrmwing Treads'),
+(34261,51819,0,1,1,1,0,'Splintershard'),
+(34261,51820,0,1,1,1,0,'Vambraces of the Frost Wyrm Queen'),
+(34261,51821,0,1,1,1,0,'Etched Dragonbone Girdle'),
+(34261,51822,0,1,1,1,0,'Rimetooth Pendant'),
+(34273,50364,0,1,1,1,0,'Sindragosa''s Flawless Fang'),
+(34273,50365,0,1,1,1,0,'Phylactery of the Nameless Lich'),
+(34273,50633,0,1,1,1,0,'Sindragosa''s Cruel Claw'),
+(34273,50635,0,1,1,1,0,'Sundial of Eternal Dusk'),
+(34273,50636,0,1,1,1,0,'Memory of Malygos');
+REPLACE INTO `reference_loot_template_names` (`entry`,`name`) VALUES
+(34237,'ICC Sindragosa 10 Normal'),
+(34249,'ICC Sindragosa 25 Normal'),
+(34261,'ICC Sindragosa 10 Heroic'),
+(34273,'ICC Sindragosa 25 Heroic');
+
+COMMIT;
