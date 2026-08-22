@@ -145,3 +145,142 @@ INSERT INTO `creature_loot_template`
 (38785,49908,38,0,1,1,0,'Primordial Saronite');
 
 COMMIT;
+
+-- Final tested ICC data: council
+START TRANSACTION;
+
+-- BroadcastText records absent from the base world database.
+INSERT IGNORE INTO `broadcast_text`
+(`Id`,`Text`,`Text1`,`ChatTypeID`,`LanguageID`,`ConditionID`,`EmotesID`,`Flags`,
+ `SoundEntriesID1`,`SoundEntriesID2`,`EmoteID1`,`EmoteID2`,`EmoteID3`,
+ `EmoteDelay1`,`EmoteDelay2`,`EmoteDelay3`,`VerifiedBuild`) VALUES
+(37997,'','Foolish mortals. You thought us defeated so easily? The San\'layn are the Lich King\'s immortal soldiers! Now you shall face their might combined!',6,0,0,0,0,16795,0,1,0,0,0,0,0,12340),
+(38000,'BOW DOWN BEFORE THE SAN\'LAYN!','',1,0,0,0,0,16684,0,0,0,0,0,0,0,12340),
+(1631114,'%s gurgles and dies.','',2,0,0,0,0,16855,0,0,0,0,0,0,0,12340),
+(1631120,'...why...?','',1,0,0,0,0,16683,0,0,0,0,0,0,0,12340);
+
+UPDATE `broadcast_text` SET `ChatTypeID`=1
+WHERE `Id` IN (37998,37999,38000,38001,38002,38003,38004,38005,38006,38007,38008,38009,38010,38011);
+
+UPDATE `broadcast_text` SET `ChatTypeID`=2
+WHERE `Id` IN (13022,37127);
+
+UPDATE `broadcast_text` SET `ChatTypeID`=3
+WHERE `Id` IN (38588,38589,38590,38624,38972);
+
+UPDATE `broadcast_text` SET `ChatTypeID`=6
+WHERE `Id` IN (37997,38079);
+
+UPDATE `broadcast_text`
+SET `SoundEntriesID1` = CASE `Id`
+    WHEN 13022 THEN 16726
+    WHEN 37127 THEN 16856
+    WHEN 37997 THEN 16795
+    WHEN 37998 THEN 16681
+    WHEN 37999 THEN 16682
+    WHEN 38000 THEN 16684
+    WHEN 38001 THEN 16685
+    WHEN 38002 THEN 16686
+    WHEN 38003 THEN 16723
+    WHEN 38004 THEN 16724
+    WHEN 38005 THEN 16725
+    WHEN 38006 THEN 16727
+    WHEN 38007 THEN 16728
+    WHEN 38008 THEN 16853
+    WHEN 38009 THEN 16854
+    WHEN 38010 THEN 16857
+    WHEN 38011 THEN 16858
+    WHEN 38079 THEN 16796
+    WHEN 38588 THEN 0
+    WHEN 38589 THEN 0
+    WHEN 38590 THEN 0
+    WHEN 38624 THEN 0
+    WHEN 38972 THEN 0
+    ELSE `SoundEntriesID1`
+END
+WHERE `Id` IN (13022,37127,37997,37998,37999,38000,38001,38002,38003,38004,38005,38006,38007,38008,38009,38010,38011,38079,38588,38589,38590,38624,38972);
+
+UPDATE `broadcast_text` SET `EmoteID1`=1 WHERE `Id`=37997;
+
+-- Four-mode reward bindings and pools.
+UPDATE `creature_template` SET `LootId`=`Entry` WHERE `Entry` IN (37970,38401,38784,38785);
+DELETE FROM `creature_loot_template` WHERE `entry` IN (37970,38401,38784,38785);
+INSERT INTO `creature_loot_template`
+(`entry`,`item`,`ChanceOrQuestChance`,`groupid`,`mincountOrRef`,`maxcount`,`condition_id`,`comments`) VALUES
+(37970,49426,100,0,2,2,0,'Prince Valanar - Emblem of Frost'),
+(37970,34235,100,0,-34235,2,0,'Prince Valanar - (ReferenceTable)'),
+(38401,49426,100,0,2,2,0,'Prince Valanar (1) - Emblem of Frost'),
+(38401,49908,38,0,1,1,0,'Prince Valanar (1) - Primordial Saronite'),
+(38401,50274,-38,0,1,1,0,'Prince Valanar (1) - Shadowfrost Shard'),
+(38401,34248,100,0,-34248,3,0,'Prince Valanar (1) - (ReferenceTable)'),
+(38784,49426,100,0,2,2,0,'Prince Valanar (2) - Emblem of Frost'),
+(38784,49908,38,0,1,1,0,'Prince Valanar (2) - Primordial Saronite'),
+(38784,34259,100,0,-34259,2,0,'Prince Valanar (2) - (ReferenceTable)'),
+(38785,49426,100,0,2,2,0,'Prince Valanar (3) - Emblem of Frost'),
+(38785,49908,38,0,1,1,0,'Prince Valanar (3) - Primordial Saronite'),
+(38785,50274,-68,0,1,1,0,'Prince Valanar (3) - Shadowfrost Shard'),
+(38785,34271,100,0,-34271,3,0,'Prince Valanar (3) - (ReferenceTable)');
+DELETE FROM `reference_loot_template` WHERE `entry` IN (34235,34248,34259,34271);
+INSERT INTO `reference_loot_template`
+(`entry`,`item`,`ChanceOrQuestChance`,`groupid`,`mincountOrRef`,`maxcount`,`condition_id`,`comments`) VALUES
+(34235,51021,0,1,1,1,0,'Soulbreaker'),
+(34235,51022,0,1,1,1,0,'Hersir''s Greatspear'),
+(34235,51023,0,1,1,1,0,'Taldaram''s Soft Slippers'),
+(34235,51024,0,1,1,1,0,'Thrice Fanged Signet'),
+(34235,51025,0,1,1,1,0,'Battle-Maiden''s Legguards'),
+(34235,51325,0,1,1,1,0,'Blood-Drinker''s Girdle'),
+(34235,51326,0,1,1,1,0,'Wand of Ruby Claret'),
+(34235,51379,0,1,1,1,0,'Bloodsoul Raiment'),
+(34235,51380,0,1,1,1,0,'Pale Corpse Boots'),
+(34235,51381,0,1,1,1,0,'Cerise Coiled Ring'),
+(34235,51382,0,1,1,1,0,'Heartsick Mender''s Cape'),
+(34235,51383,0,1,1,1,0,'Spaulders of the Blood Princes'),
+(34248,49919,0,1,1,1,0,'Cryptmaker'),
+(34248,50071,0,1,1,1,0,'Treads of the Wasteland'),
+(34248,50072,0,1,1,1,0,'Landsoul''s Horned Greathelm'),
+(34248,50073,0,1,1,1,0,'Geistlord''s Punishment Sack'),
+(34248,50074,0,1,1,1,0,'Royal Crimson Cloak'),
+(34248,50075,0,1,1,1,0,'Taldaram''s Plated Fists'),
+(34248,50170,0,1,1,1,0,'Valanar''s Other Signet Ring'),
+(34248,50171,0,1,1,1,0,'Shoulders of Frost-Tipped Thorns'),
+(34248,50172,0,1,1,1,0,'Sanguine Silk Robes'),
+(34248,50173,0,1,1,1,0,'Shadow Silk Spindle'),
+(34248,50174,0,1,1,1,0,'Incarnadine Band of Mending'),
+(34248,50175,0,1,1,1,0,'Crypt Keeper''s Bracers'),
+(34248,50176,0,1,1,1,0,'San''layn Ritualist Gloves'),
+(34248,50177,0,1,1,1,0,'Mail of Crimson Coins'),
+(34248,50184,0,1,1,1,0,'Keleseth''s Seducer'),
+(34259,51847,0,1,1,1,0,'Spaulders of the Blood Princes'),
+(34259,51848,0,1,1,1,0,'Heartsick Mender''s Cape'),
+(34259,51849,0,1,1,1,0,'Cerise Coiled Ring'),
+(34259,51850,0,1,1,1,0,'Pale Corpse Boots'),
+(34259,51851,0,1,1,1,0,'Bloodsoul Raiment'),
+(34259,51852,0,1,1,1,0,'Wand of Ruby Claret'),
+(34259,51853,0,1,1,1,0,'Blood-Drinker''s Girdle'),
+(34259,51854,0,1,1,1,0,'Battle-Maiden''s Legguards'),
+(34259,51855,0,1,1,1,0,'Thrice Fanged Signet'),
+(34259,51856,0,1,1,1,0,'Taldaram''s Soft Slippers'),
+(34259,51857,0,1,1,1,0,'Hersir''s Greatspear'),
+(34259,51858,0,1,1,1,0,'Soulbreaker'),
+(34271,50603,0,1,1,1,0,'Cryptmaker'),
+(34271,50710,0,1,1,1,0,'Keleseth''s Seducer'),
+(34271,50711,0,1,1,1,0,'Treads of the Wasteland'),
+(34271,50712,0,1,1,1,0,'Landsoul''s Horned Greathelm'),
+(34271,50713,0,1,1,1,0,'Geistlord''s Punishment Sack'),
+(34271,50714,0,1,1,1,0,'Valanar''s Other Signet Ring'),
+(34271,50715,0,1,1,1,0,'Shoulders of Frost-Tipped Thorns'),
+(34271,50716,0,1,1,1,0,'Taldaram''s Plated Fists'),
+(34271,50717,0,1,1,1,0,'Sanguine Silk Robes'),
+(34271,50718,0,1,1,1,0,'Royal Crimson Cloak'),
+(34271,50719,0,1,1,1,0,'Shadow Silk Spindle'),
+(34271,50720,0,1,1,1,0,'Incarnadine Band of Mending'),
+(34271,50721,0,1,1,1,0,'Crypt Keeper''s Bracers'),
+(34271,50722,0,1,1,1,0,'San''layn Ritualist Gloves'),
+(34271,50723,0,1,1,1,0,'Mail of Crimson Coins');
+REPLACE INTO `reference_loot_template_names` (`entry`,`name`) VALUES
+(34235,'ICC Blood Council 10 Normal'),
+(34248,'ICC Blood Council 25 Normal'),
+(34259,'ICC Blood Council 10 Heroic'),
+(34271,'ICC Blood Council 25 Heroic');
+
+COMMIT;
