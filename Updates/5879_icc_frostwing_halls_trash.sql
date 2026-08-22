@@ -110,3 +110,38 @@ INSERT INTO `creature_spell_list`
 (3753201,0,71361,0,-1,1,0,100,1,3000,6000,5000,8000,'Frostwing Whelp - Frost Blast');
 
 COMMIT;
+
+-- Activate the 25-player Frostbinder and Huntress variants used by Svalna.
+UPDATE `creature_template`
+SET `UnitFlags`=`UnitFlags` & ~33555200
+WHERE `Entry` IN (38126,38131);
+
+-- Final tested ICC data: frostwing
+START TRANSACTION;
+
+-- BroadcastText records absent from the base world database.
+INSERT IGNORE INTO `broadcast_text`
+(`Id`,`Text`,`Text1`,`ChatTypeID`,`LanguageID`,`ConditionID`,`EmotesID`,`Flags`,
+ `SoundEntriesID1`,`SoundEntriesID2`,`EmoteID1`,`EmoteID2`,`EmoteID3`,
+ `EmoteDelay1`,`EmoteDelay2`,`EmoteDelay3`,`VerifiedBuild`) VALUES
+(37653,'','Come, Scourgebane. I\'ll show the master which of us is truly worthy of the title of \"Champion\"!',1,0,0,0,0,17020,0,0,0,0,0,0,0,12340);
+
+UPDATE `broadcast_text` SET `ChatTypeID`=1
+WHERE `Id` IN (36945,36946,36948,37020,37024,37135,37161,37653,37654);
+
+UPDATE `broadcast_text`
+SET `SoundEntriesID1` = CASE `Id`
+    WHEN 36945 THEN 16819
+    WHEN 36946 THEN 16820
+    WHEN 36948 THEN 16585
+    WHEN 37020 THEN 17019
+    WHEN 37024 THEN 17017
+    WHEN 37135 THEN 17023
+    WHEN 37161 THEN 0
+    WHEN 37653 THEN 17020
+    WHEN 37654 THEN 17021
+    ELSE `SoundEntriesID1`
+END
+WHERE `Id` IN (36945,36946,36948,37020,37024,37135,37161,37653,37654);
+
+COMMIT;
