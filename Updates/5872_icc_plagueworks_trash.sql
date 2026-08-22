@@ -35,3 +35,17 @@ INSERT INTO `scripted_event_id` (`id`,`ScriptName`) VALUES
 (23438,'event_gameobject_citadel_valve');
 
 COMMIT;
+
+-- Precious's Ribbon drops from Precious in both raid sizes.
+UPDATE `creature_template`
+SET `LootId`=`Entry`
+WHERE `Entry` IN (37217,38103);
+
+DELETE FROM `creature_loot_template`
+WHERE `entry` IN (37217,38103)
+  AND `item`=52019;
+
+INSERT INTO `creature_loot_template`
+(`entry`,`item`,`ChanceOrQuestChance`,`groupid`,`mincountOrRef`,`maxcount`,`condition_id`,`comments`) VALUES
+(37217,52019,30,0,1,1,0,'Precious - Precious''s Ribbon'),
+(38103,52019,30,0,1,1,0,'Precious (1) - Precious''s Ribbon');
