@@ -166,3 +166,117 @@ INSERT INTO `gameobject_loot_template`
 (28096,49908,20,0,1,1,0,'Primordial Saronite');
 
 COMMIT;
+
+-- Dream portals expose the spell-click interaction in world data.
+UPDATE `creature_template`
+SET `NpcFlags`=`NpcFlags` | 16777216
+WHERE `Entry` IN (37945,38430);
+
+-- Final tested ICC data: valithria
+START TRANSACTION;
+
+-- BroadcastText records absent from the base world database.
+INSERT IGNORE INTO `broadcast_text`
+(`Id`,`Text`,`Text1`,`ChatTypeID`,`LanguageID`,`ConditionID`,`EmotesID`,`Flags`,
+ `SoundEntriesID1`,`SoundEntriesID2`,`EmoteID1`,`EmoteID2`,`EmoteID3`,
+ `EmoteDelay1`,`EmoteDelay2`,`EmoteDelay3`,`VerifiedBuild`) VALUES
+(1631144,'Forgive me for what I do! I... cannot... stop... ONLY NIGHTMARES REMAIN!','',1,0,0,0,0,17072,0,0,0,0,0,0,0,12340),
+(1631145,'A tragic loss...','',1,0,0,0,0,17066,0,0,0,0,0,0,0,12340),
+(1631146,'FAILURES!','',1,0,0,0,0,17067,0,0,0,0,0,0,0,12340);
+
+UPDATE `broadcast_text` SET `ChatTypeID`=1
+WHERE `Id` IN (21784,37852,37875,37876,37878,38068);
+
+UPDATE `broadcast_text`
+SET `SoundEntriesID1` = CASE `Id`
+    WHEN 21784 THEN 17069
+    WHEN 37852 THEN 17071
+    WHEN 37875 THEN 17064
+    WHEN 37876 THEN 17068
+    WHEN 37878 THEN 17070
+    WHEN 38068 THEN 16793
+    ELSE `SoundEntriesID1`
+END
+WHERE `Id` IN (21784,37852,37875,37876,37878,38068);
+
+-- Four-mode reward bindings and pools.
+DELETE FROM `reference_loot_template` WHERE `entry` IN (34241,34253,34265,34277);
+INSERT INTO `reference_loot_template`
+(`entry`,`item`,`ChanceOrQuestChance`,`groupid`,`mincountOrRef`,`maxcount`,`condition_id`,`comments`) VALUES
+(34241,51561,0,1,1,1,0,'Dreamhunter''s Carbine'),
+(34241,51562,0,1,1,1,0,'Oxheart'),
+(34241,51563,0,1,1,1,0,'Taiga Bindings'),
+(34241,51564,0,1,1,1,0,'Ironrope Belt of Ymirjar'),
+(34241,51565,0,1,1,1,0,'Skinned Whelp Shoulders'),
+(34241,51566,0,1,1,1,0,'Legguards of the Twisted Dream'),
+(34241,51582,0,1,1,1,0,'Sister Svalna''s Aether Staff'),
+(34241,51583,0,1,1,1,0,'Stormbringer Gloves'),
+(34241,51584,0,1,1,1,0,'Lich Wrappings'),
+(34241,51585,0,1,1,1,0,'Sister Svalna''s Spangenhelm'),
+(34241,51586,0,1,1,1,0,'Emerald Saint''s Spaulders'),
+(34241,51777,0,1,1,1,0,'Leggings of the Refracted Mind'),
+(34253,50183,0,1,1,1,0,'Lungbreaker'),
+(34253,50185,0,1,1,1,0,'Devium''s Eternally Cold Ring'),
+(34253,50186,0,1,1,1,0,'Frostbrood Sapphire Ring'),
+(34253,50187,0,1,1,1,0,'Coldwraith Links'),
+(34253,50188,0,1,1,1,0,'Anub''ar Stalker''s Gloves'),
+(34253,50190,0,1,1,1,0,'Grinning Skull Greatboots'),
+(34253,50192,0,1,1,1,0,'Scourge Reaver''s Legplates'),
+(34253,50195,0,1,1,1,0,'Noose of Malachite'),
+(34253,50199,0,1,1,1,0,'Leggings of Dying Candles'),
+(34253,50202,0,1,1,1,0,'Snowstorm Helm'),
+(34253,50205,0,1,1,1,0,'Frostbinder''s Shredded Cape'),
+(34253,50416,0,1,1,1,0,'Boots of the Funeral March'),
+(34253,50417,0,1,1,1,0,'Bracers of Eternal Dreaming'),
+(34253,50418,0,1,1,1,0,'Robe of the Waking Nightmare'),
+(34253,50472,0,1,1,1,0,'Nightmare Ender'),
+(34265,51823,0,1,1,1,0,'Leggings of the Refracted Mind'),
+(34265,51824,0,1,1,1,0,'Emerald Saint''s Spaulders'),
+(34265,51825,0,1,1,1,0,'Sister Svalna''s Spangenhelm'),
+(34265,51826,0,1,1,1,0,'Lich Wrappings'),
+(34265,51827,0,1,1,1,0,'Stormbringer Gloves'),
+(34265,51828,0,1,1,1,0,'Sister Svalna''s Aether Staff'),
+(34265,51829,0,1,1,1,0,'Legguards of the Twisted Dream'),
+(34265,51830,0,1,1,1,0,'Skinned Whelp Shoulders'),
+(34265,51831,0,1,1,1,0,'Ironrope Belt of Ymirjar'),
+(34265,51832,0,1,1,1,0,'Taiga Bindings'),
+(34265,51833,0,1,1,1,0,'Oxheart'),
+(34265,51834,0,1,1,1,0,'Dreamhunter''s Carbine'),
+(34277,50618,0,1,1,1,0,'Frostbrood Sapphire Ring'),
+(34277,50619,0,1,1,1,0,'Anub''ar Stalker''s Gloves'),
+(34277,50620,0,1,1,1,0,'Coldwraith Links'),
+(34277,50621,0,1,1,1,0,'Lungbreaker'),
+(34277,50622,0,1,1,1,0,'Devium''s Eternally Cold Ring'),
+(34277,50623,0,1,1,1,0,'Leggings of Dying Candles'),
+(34277,50624,0,1,1,1,0,'Scourge Reaver''s Legplates'),
+(34277,50625,0,1,1,1,0,'Grinning Skull Greatboots'),
+(34277,50626,0,1,1,1,0,'Snowstorm Helm'),
+(34277,50627,0,1,1,1,0,'Noose of Malachite'),
+(34277,50628,0,1,1,1,0,'Frostbinder''s Shredded Cape'),
+(34277,50629,0,1,1,1,0,'Robe of the Waking Nightmare'),
+(34277,50630,0,1,1,1,0,'Bracers of Eternal Dreaming'),
+(34277,50631,0,1,1,1,0,'Nightmare Ender'),
+(34277,50632,0,1,1,1,0,'Boots of the Funeral March');
+DELETE FROM `gameobject_loot_template` WHERE `entry` IN (28052,28064,28082,28096);
+INSERT INTO `gameobject_loot_template`
+(`entry`,`item`,`ChanceOrQuestChance`,`groupid`,`mincountOrRef`,`maxcount`,`condition_id`,`comments`) VALUES
+(28052,34241,100,0,-34241,2,0,'Cache of the Dreamwalker - (ReferenceTable)'),
+(28052,49426,100,0,2,2,0,'Cache of the Dreamwalker - Emblem of Frost'),
+(28064,34265,100,0,-34265,2,0,'Cache of the Dreamwalker - (ReferenceTable)'),
+(28064,49426,100,0,2,2,0,'Cache of the Dreamwalker - Emblem of Frost'),
+(28064,49908,20,0,1,1,0,'Cache of the Dreamwalker - Primordial Saronite'),
+(28082,34253,100,0,-34253,3,0,'Cache of the Dreamwalker - (ReferenceTable)'),
+(28082,49426,100,0,2,2,0,'Cache of the Dreamwalker - Emblem of Frost'),
+(28082,49908,20,0,1,1,0,'Cache of the Dreamwalker - Primordial Saronite'),
+(28082,50274,-38,0,1,1,0,'Cache of the Dreamwalker - Shadowfrost Shard'),
+(28096,34277,100,0,-34277,3,0,'Cache of the Dreamwalker - (ReferenceTable)'),
+(28096,49426,100,0,2,2,0,'Cache of the Dreamwalker - Emblem of Frost'),
+(28096,49908,20,0,1,1,0,'Cache of the Dreamwalker - Primordial Saronite'),
+(28096,50274,-68,0,1,1,0,'Cache of the Dreamwalker - Shadowfrost Shard');
+REPLACE INTO `reference_loot_template_names` (`entry`,`name`) VALUES
+(34241,'ICC Valithria 10 Normal'),
+(34253,'ICC Valithria 25 Normal'),
+(34265,'ICC Valithria 10 Heroic'),
+(34277,'ICC Valithria 25 Heroic');
+
+COMMIT;
