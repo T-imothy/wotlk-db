@@ -2,6 +2,25 @@
 
 START TRANSACTION;
 
+SET @CGUID := 6310000;
+SET @SGGUID := 6310000;
+SET @STRINGID := 6310000;
+SET @SPAWNDATA := 6310000;
+
+DELETE FROM `string_id` WHERE `Id` BETWEEN @STRINGID + 1 AND @STRINGID + 2;
+INSERT INTO `string_id` (`Id`, `Name`) VALUES
+(@STRINGID + 1, 'ICC_LIGHTS_HAMMER_DAMNED'),
+(@STRINGID + 2, 'ICC_SPIRE_FROSTWYRM');
+
+DELETE FROM `creature_spawn_data` WHERE `Guid` IN (@CGUID + 92, @CGUID + 93);
+INSERT INTO `creature_spawn_data` (`Guid`, `Id`) VALUES
+(@CGUID + 92, @SPAWNDATA + 1),
+(@CGUID + 93, @SPAWNDATA + 1);
+
+DELETE FROM `creature_spawn_data_template` WHERE `Entry` = @SPAWNDATA + 1;
+INSERT INTO `creature_spawn_data_template` (`Entry`, `StringId`, `Name`) VALUES
+(@SPAWNDATA + 1, @STRINGID + 1, 'ICC - Light''s Hammer - The Damned');
+
 -- Nerub'ar Broodkeeper: restore Dark Mending.
 UPDATE `creature_ai_scripts`
 SET `action1_param1` = 71020,
@@ -27,6 +46,39 @@ UPDATE `creature_template`
 SET `ScriptName` = 'npc_spire_frostwyrm_icc',
     `SpellList` = 3723001
 WHERE `Entry` = 37230;
+
+-- Restore the existing rampart Frostwyrms if an earlier revision of this update
+-- disabled them.
+UPDATE `creature`
+SET `SpawnMask` = 15
+WHERE `guid` IN (@CGUID + 256, @CGUID + 260);
+
+DELETE FROM `spawn_group_spawn` WHERE `Id` = @SGGUID + 1;
+DELETE FROM `spawn_group` WHERE `Id` = @SGGUID + 1;
+
+-- The two event Frostwyrms use the flight-start positions formerly held in
+-- core. Only the record matching the instance faction is instantiated.
+DELETE FROM `creature_conditional_spawn` WHERE `guid` IN (@CGUID + 489, @CGUID + 490);
+DELETE FROM `creature` WHERE `guid` IN (@CGUID + 489, @CGUID + 490);
+INSERT INTO `creature`
+    (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`,
+     `spawntimesecsmin`, `spawntimesecsmax`, `spawndist`, `MovementType`)
+VALUES
+    (@CGUID + 489, 0, 631, 0, 1, -361.154358, 2305.821289, 244.771713, 2.704335, 604800, 604800, 0, 0),
+    (@CGUID + 490, 0, 631, 0, 1, -375.538879, 2120.774658, 242.256775, 3.714352, 604800, 604800, 0, 0);
+
+INSERT INTO `creature_conditional_spawn` (`guid`, `EntryAlliance`, `EntryHorde`, `Comments`) VALUES
+    (@CGUID + 489, 37230, 0, 'ICC - Alliance Spire Frostwyrm event'),
+    (@CGUID + 490, 0, 37230, 'ICC - Horde Spire Frostwyrm event');
+
+INSERT INTO `spawn_group`
+    (`Id`, `Name`, `Type`, `MaxCount`, `WorldState`, `WorldStateExpression`, `Flags`, `StringId`)
+VALUES
+    (@SGGUID + 1, 'ICC - Spire Frostwyrm', 0, 2, 0, 0, 0, @STRINGID + 2);
+
+INSERT INTO `spawn_group_spawn` (`Id`, `Guid`, `SlotId`) VALUES
+(@SGGUID + 1, @CGUID + 489, -1),
+(@SGGUID + 1, @CGUID + 490, -1);
 
 DELETE FROM `creature_ai_scripts`
 WHERE `creature_id` = 37230;
