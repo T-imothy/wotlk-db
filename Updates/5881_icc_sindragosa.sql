@@ -79,7 +79,7 @@ INSERT INTO `creature_loot_template`
 (38267,65019,100,0,-65019,2,0,'Two normal Sanctification marks'),
 (38267,65020,100,0,-65020,1,0,'One heroic Sanctification mark'),
 (38267,49426,100,0,2,2,0,'Emblem of Frost x2'),
-(38267,49908,38,0,1,1,0,'Primordial Saronite'),
+(38267,49908,38,0,1,1,0,'Primordial Saronite');
 
 -- Keep deterministic phase transitions, Ice Tomb selection, Frost Bomb
 -- placement and flight paths in the encounter script.  The ordinary combat
