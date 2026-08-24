@@ -296,4 +296,8 @@ REPLACE INTO `reference_loot_template_names` (`entry`,`name`) VALUES
 (34262,'ICC Lich King 10 Heroic'),
 (34274,'ICC Lich King 25 Heroic');
 
+UPDATE `creature_template`
+SET `MinLootGold`=1300000, `MaxLootGold`=1500000
+WHERE `Entry` IN (36597,39166,39167,39168);
+
 COMMIT;
