@@ -2,10 +2,28 @@
 
 START TRANSACTION;
 
+SET @CGUID := 6310000;
+SET @STRINGID := 6310001;
+
 UPDATE `creature_template`
 SET `AIName`='', `ScriptName`='npc_icc_vengeful_fleshreaper', `SpellList`=3703801
 WHERE `Entry`=37038;
 UPDATE `creature_template` SET `ScriptName`='npc_putricides_trap' WHERE `Entry`=38879;
+
+DELETE FROM `string_id` WHERE `Id`=@STRINGID;
+INSERT INTO `string_id` (`Id`,`Name`) VALUES
+(@STRINGID,'ICC_PLAGUEWORKS_PIPE_FLESHREAPER');
+
+DELETE FROM `creature_spawn_data_template` WHERE `Entry`=3703801;
+INSERT INTO `creature_spawn_data_template`
+    (`Entry`,`SpawnFlags`,`StringId`,`Name`)
+VALUES
+    (3703801,1,@STRINGID,'Icecrown Citadel - pipe Vengeful Fleshreaper');
+
+DELETE FROM `creature_spawn_data` WHERE `Guid` IN (@CGUID+187,@CGUID+188);
+INSERT INTO `creature_spawn_data` (`Guid`,`Id`) VALUES
+(@CGUID+187,3703801),
+(@CGUID+188,3703801);
 
 -- Leaping Face Maul is ordinary combat rotation. Keep the pipe jump in core,
 -- and migrate the spell from the legacy EventAI row to the shared spell-list system.
