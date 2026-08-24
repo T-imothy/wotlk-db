@@ -209,4 +209,8 @@ REPLACE INTO `reference_loot_template_names` (`entry`,`name`) VALUES
 (34261,'ICC Sindragosa 10 Heroic'),
 (34273,'ICC Sindragosa 25 Heroic');
 
+UPDATE `creature_template`
+SET `MinLootGold`=1330000, `MaxLootGold`=1400000
+WHERE `Entry` IN (36853,38265,38266,38267);
+
 COMMIT;
