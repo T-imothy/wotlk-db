@@ -246,4 +246,9 @@ REPLACE INTO `reference_loot_template_names` (`entry`,`name`) VALUES
 (34263,'ICC Gunship 10 Heroic'),
 (34275,'ICC Gunship 25 Heroic');
 
+UPDATE `gameobject_template` SET `mingold`=800000,  `maxgold`=900000  WHERE `entry`=201873;
+UPDATE `gameobject_template` SET `mingold`=2000000, `maxgold`=2250000 WHERE `entry`=201874;
+UPDATE `gameobject_template` SET `mingold`=1000000, `maxgold`=1200000 WHERE `entry`=201872;
+UPDATE `gameobject_template` SET `mingold`=2000000, `maxgold`=2250000 WHERE `entry`=201875;
+
 COMMIT;
