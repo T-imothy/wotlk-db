@@ -2,6 +2,26 @@
 
 START TRANSACTION;
 
+-- The encounter uses the existing fixed creature slot beside Valithria as the
+-- hidden controller that summons the difficulty-specific reward cache.
+UPDATE `creature`
+SET `id`=38153
+WHERE `guid`=6310042
+  AND `map`=631;
+
+-- Remove the misplaced base spawn and any older standalone-test duplicate in
+-- Valithria's room. The fixed controller above remains the single owner.
+DELETE FROM `creature`
+WHERE `guid`=6310384
+  AND `id`=38153
+  AND `map`=631;
+DELETE FROM `creature`
+WHERE `map`=631
+  AND `id`=38153
+  AND `guid`<>6310042
+  AND `position_x` BETWEEN 4190 AND 4215
+  AND `position_y` BETWEEN 2470 AND 2500;
+
 UPDATE `creature_template`
 SET `ScriptName`='boss_valithria_dreamwalker',
     `RegenerateStats`=`RegenerateStats` & ~2
@@ -85,6 +105,13 @@ UPDATE `gameobject_template` SET `data1`=28052 WHERE `entry`=201959;
 UPDATE `gameobject_template` SET `data1`=28064 WHERE `entry`=202338;
 UPDATE `gameobject_template` SET `data1`=28082 WHERE `entry`=202339;
 UPDATE `gameobject_template` SET `data1`=28096 WHERE `entry`=202340;
+
+-- Cache currency follows the same four-mode amounts as the other ICC cache
+-- encounters.
+UPDATE `gameobject_template` SET `mingold`=800000,  `maxgold`=900000  WHERE `entry`=201959;
+UPDATE `gameobject_template` SET `mingold`=2000000, `maxgold`=2250000 WHERE `entry`=202339;
+UPDATE `gameobject_template` SET `mingold`=1000000, `maxgold`=1200000 WHERE `entry`=202338;
+UPDATE `gameobject_template` SET `mingold`=2000000, `maxgold`=2250000 WHERE `entry`=202340;
 
 DELETE FROM `reference_loot_template` WHERE `entry` BETWEEN 65011 AND 65014;
 INSERT INTO `reference_loot_template`
