@@ -9,6 +9,14 @@ WHERE `Id` = 69679;
 INSERT INTO `spell_scripts` (`Id`, `ScriptName`) VALUES
 (69679, 'spell_gunship_rocket_artillery_explosion');
 
+-- Cannon Blast overheats the cannon when its heat reaches 100.
+DELETE FROM `spell_scripts`
+WHERE `Id` IN (69399,70172);
+
+INSERT INTO `spell_scripts` (`Id`, `ScriptName`) VALUES
+(69399, 'spell_gunship_cannon_blast'),
+(70172, 'spell_gunship_cannon_blast');
+
 -- Zafod's client-known spell lacks the server-side create-item data.
 INSERT INTO `spell_template`
     (`Id`, `Attributes`, `AttributesEx2`, `ProcChance`, `Effect1`,
