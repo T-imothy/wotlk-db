@@ -9,9 +9,16 @@ DELETE FROM `creature_spell_list` WHERE `Id`=3662601;
 DELETE FROM `creature_spell_list_entry` WHERE `Id`=3662601;
 
 DELETE FROM `spell_scripts` WHERE `Id` IN
-(69165,69290,71222,73033,73034,72219,72551,72552,72553);
+(69165,69290,71222,73033,73034,72219,72551,72552,72553,
+ 71307,71908,69195,71219,73031,73032);
 INSERT INTO `spell_scripts` (`Id`,`ScriptName`) VALUES
 (69165,'spell_inhale_blight'),
+(71307,'spell_festergut_vile_gas'),
+(71908,'spell_festergut_vile_gas'),
+(69195,'spell_festergut_pungent_blight'),
+(71219,'spell_festergut_pungent_blight'),
+(73031,'spell_festergut_pungent_blight'),
+(73032,'spell_festergut_pungent_blight'),
 (69290,'spell_festergut_blighted_spores'),
 (71222,'spell_festergut_blighted_spores'),
 (73033,'spell_festergut_blighted_spores'),
