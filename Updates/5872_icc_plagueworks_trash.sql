@@ -3,7 +3,7 @@
 START TRANSACTION;
 
 SET @CGUID := 6310000;
-SET @STRINGID := 6310001;
+SET @STRINGID := 6310003;
 
 UPDATE `creature_template`
 SET `AIName`='', `ScriptName`='npc_icc_vengeful_fleshreaper', `SpellList`=3703801
