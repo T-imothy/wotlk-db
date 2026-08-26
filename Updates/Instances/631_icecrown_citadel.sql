@@ -1338,23 +1338,25 @@ INSERT INTO `creature_movement` (`Id`, `Point`, `PositionX`, `PositionY`, `Posit
 (@CHGUID+18,6,-40.72717,-18.92194,34.50607,0,0,0);
 
 INSERT INTO `string_id` (`Id`, `Name`) VALUES
-(@STRINGID + 1, 'ICC_LIGHTS_HAMMER_DAMNED'),
-(@STRINGID + 2, 'ICC_SPIRE_FROSTWYRM');
+(@STRINGID+1, 'ICC_LIGHTS_HAMMER_DAMNED'),
+(@STRINGID+2, 'ICC_SPIRE_FROSTWYRM'),
+(@STRINGID+3, 'ICC_PLAGUEWORKS_PIPE_FLESHREAPER');
 
-DELETE FROM `creature_spawn_data_template` WHERE `Entry` = @SPAWNDATA + 1;
+DELETE FROM `creature_spawn_data_template` WHERE `Entry` = @SPAWNDATA+1;
 INSERT INTO `creature_spawn_data_template` (`Entry`, `StringId`, `Name`) VALUES
-(@SPAWNDATA + 1, @STRINGID + 1, 'ICC - Light''s Hammer - The Damned');
+(@SPAWNDATA+1, @STRINGID+1, 'ICC - Light''s Hammer - The Damned'),
+(3703801,1,@STRINGID+3,'Icecrown Citadel - pipe Vengeful Fleshreaper');
 
 -- Set run on spawn
 DELETE FROM creature_spawn_data WHERE guid IN(@CGUID+94,@CGUID+179,@CGUID+187,@CGUID+188,@CGUID+205,@CGUID+206,@CGUID+261,@CGUID+262,@CGUID+263,@CGUID+264,
 @CGUID+265,@CGUID+266,@CGUID+267);
 INSERT INTO creature_spawn_data(Guid,Id) VALUES
 (@CGUID+92, @SPAWNDATA+1),
-(@CGUID+93, @SPAWNDATA+1);
+(@CGUID+93, @SPAWNDATA+1),
 (@CGUID+94, 1),
 (@CGUID+179, 1),
-(@CGUID+187, 1),
-(@CGUID+188, 1),
+(@CGUID+187,3703801),
+(@CGUID+188,3703801),
 (@CGUID+205, 1),
 (@CGUID+206, 1),
 (@CGUID+261, 1),

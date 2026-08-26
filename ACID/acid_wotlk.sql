@@ -43098,8 +43098,7 @@ INSERT INTO `creature_ai_scripts` (`id`,`creature_id`,`event_type`,`event_invers
 ('3703501','37035','4','0','100','0','0','0','0','0','0','0','11','69927','0','1','0','0','0','0','0','0','0','0','Kor\'kron Vanquisher - Cast Avenger\'s Shield on Aggro'),
 ('3703502','37035','0','0','100','1025','10000','20000','10000','20000','0','0','11','69934','1','0','0','0','0','0','0','0','0','0','Kor\'kron Vanquisher - Cast Holy Wrath'),
 ('3703503','37035','9','0','100','1025','0','10','22000','32000','0','0','11','69930','0','0','0','0','0','0','0','0','0','0','Kor\'kron Vanquisher - Cast Consecration'),
--- Vengeful Fleshreaper 37038
-('3703801','37038','9','0','100','1055','5','30','5000','10000','0','0','11','71164','5','0','0','0','0','0','0','0','0','0','Vengeful Fleshreaper - Cast Leaping Face Maul'),
+-- Vengeful Fleshreaper 37038 -- spell lists
 -- Skybreaker Sorcerer 37116
 ('3711601','37116','11','0','100','30','0','0','0','0','0','0','11','43897','0','0','57','2','30','0','0','0','0','0','Skybreaker Sorcerer - Cast Shadow Channeling and Set Ranged Mode on Spawn'),
 -- Kor'kron Battle-Mage 37117
