@@ -1343,8 +1343,8 @@ INSERT INTO `string_id` (`Id`, `Name`) VALUES
 (@STRINGID+3, 'ICC_PLAGUEWORKS_PIPE_FLESHREAPER');
 
 DELETE FROM `creature_spawn_data_template` WHERE `Entry` = @SPAWNDATA+1;
-INSERT INTO `creature_spawn_data_template` (`Entry`, `StringId`, `Name`) VALUES
-(@SPAWNDATA+1, @STRINGID+1, 'ICC - Light''s Hammer - The Damned'),
+INSERT INTO `creature_spawn_data_template` (`Entry`,`SpawnFlags`,`StringId`,`Name`) VALUES
+(@SPAWNDATA+1,0,@STRINGID+1, 'ICC - Light''s Hammer - The Damned'),
 (3703801,1,@STRINGID+3,'Icecrown Citadel - pipe Vengeful Fleshreaper');
 
 -- Set run on spawn
