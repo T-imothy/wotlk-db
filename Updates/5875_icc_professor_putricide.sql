@@ -2,23 +2,47 @@
 
 START TRANSACTION;
 
-UPDATE `creature_template` SET `ScriptName`='boss_professor_putricide', `SpellList`=0 WHERE `Entry`=36678;
-UPDATE `creature_template` SET `ScriptName`='npc_volatile_ooze_icc' WHERE `Entry`=37697;
-UPDATE `creature_template` SET `ScriptName`='npc_gas_cloud_icc' WHERE `Entry`=37562;
-UPDATE `creature_template` SET `ScriptName`='npc_growing_ooze_puddle' WHERE `Entry`=37690;
-UPDATE `creature_template` SET `ScriptName`='npc_choking_gas_bomb' WHERE `Entry`=38159;
-UPDATE `creature_template` SET `ScriptName`='npc_puddle_stalker' WHERE `Entry`=37013;
+UPDATE `creature_template`
+SET `AIName`='', `ScriptName`='boss_professor_putricide', `SpellList`=0
+WHERE `Entry`=36678;
+
+UPDATE `creature_template` SET `AIName`='', `ScriptName`='npc_gas_cloud_icc' WHERE `Entry`=37562;
+UPDATE `creature_template` SET `AIName`='', `ScriptName`='npc_volatile_ooze_icc' WHERE `Entry`=37697;
+UPDATE `creature_template` SET `AIName`='', `ScriptName`='npc_growing_ooze_puddle' WHERE `Entry`=37690;
+UPDATE `creature_template` SET `AIName`='', `ScriptName`='npc_choking_gas_bomb' WHERE `Entry`=38159;
+UPDATE `creature_template` SET `AIName`='', `ScriptName`='npc_puddle_stalker' WHERE `Entry`=37013;
+
+UPDATE `creature_template`
+SET `AIName`='', `ScriptName`='npc_mutated_abomination',
+    `MinLevel`=80, `MaxLevel`=80,
+    `MinLevelHealth`=945000, `MaxLevelHealth`=945000,
+    `UnitFlags`=33587200, `SpellList`=3767201, `CharmedSpellList`=0,
+    `RegenerateStats`=2
+WHERE `Entry` IN (37672,38285);
 
 DELETE FROM `creature_spell_list`
-WHERE `Id` IN (3667801,3667802,3667803);
+WHERE `Id` IN (3667801,3667802,3667803,3767201,3767202);
 DELETE FROM `creature_spell_list_entry`
-WHERE `Id` IN (3667801,3667802,3667803);
+WHERE `Id` IN (3667801,3667802,3667803,3767201,3767202);
 
-DELETE FROM `spell_scripts` WHERE `Id` IN (70351,72840,70360);
-INSERT INTO `spell_scripts` (`Id`,`ScriptName`) VALUES
-(70351,'spell_unstable_experiment'),
-(72840,'spell_volatile_experiment'),
-(70360,'spell_eat_ooze');
+INSERT INTO `creature_spell_list_entry`
+(`Id`,`Name`,`ChanceSupportAction`,`ChanceRangedAttack`) VALUES
+(3767201,'ICC - Professor Putricide - Mutated Abomination',0,0),
+(3767202,'ICC - Professor Putricide - Mutated Abomination - Unholy Infusion',0,0);
+
+INSERT INTO `creature_spell_list`
+(`Id`,`Position`,`SpellId`,`Flags`,`CombatCondition`,`TargetId`,`ScriptId`,
+ `Availability`,`Probability`,`InitialMin`,`InitialMax`,`RepeatMin`,`RepeatMax`,`Comments`) VALUES
+(3767201,0,70542,0,-1,0,0,100,1,0,0,0,0,'Mutated Abomination - Mutated Slash'),
+(3767201,1,70360,0,-1,0,0,100,1,0,0,0,0,'Mutated Abomination - Eat Ooze'),
+(3767201,2,70539,0,-1,0,0,100,1,0,0,0,0,'Mutated Abomination - Regurgitated Ooze'),
+(3767202,0,70542,0,-1,0,0,100,1,0,0,0,0,'Mutated Abomination - Mutated Slash'),
+(3767202,1,70360,0,-1,0,0,100,1,0,0,0,0,'Mutated Abomination - Eat Ooze'),
+(3767202,2,70539,0,-1,0,0,100,1,0,0,0,0,'Mutated Abomination - Regurgitated Ooze'),
+(3767202,5,71516,0,-1,0,0,100,1,0,0,0,0,'Mutated Abomination - Shadow Infusion');
+
+DELETE FROM `creature_ai_scripts`
+WHERE `id` IN (3767201,3767202);
 
 SET @PUTRICIDE_D1 := (SELECT `DifficultyEntry1` FROM `creature_template` WHERE `Entry`=36678);
 SET @PUTRICIDE_D2 := (SELECT `DifficultyEntry2` FROM `creature_template` WHERE `Entry`=36678);
@@ -43,7 +67,7 @@ UPDATE `broadcast_text` SET `ChatTypeID`=1
 WHERE `Id` IN (33033,37049,37690,37697,37838,37840,37841,37842,37844,37845,37846,38120);
 
 UPDATE `broadcast_text` SET `ChatTypeID`=3
-WHERE `Id` IN (38500);
+WHERE `Id` IN (38498,38499,38500);
 
 UPDATE `broadcast_text`
 SET `SoundEntriesID1` = CASE `Id`
@@ -59,10 +83,12 @@ SET `SoundEntriesID1` = CASE `Id`
     WHEN 37845 THEN 17121
     WHEN 37846 THEN 17122
     WHEN 38120 THEN 17126
+    WHEN 38498 THEN 0
+    WHEN 38499 THEN 0
     WHEN 38500 THEN 0
     ELSE `SoundEntriesID1`
 END
-WHERE `Id` IN (33033,37049,37690,37697,37838,37840,37841,37842,37844,37845,37846,38120,38500);
+WHERE `Id` IN (33033,37049,37690,37697,37838,37840,37841,37842,37844,37845,37846,38120,38498,38499,38500);
 
 -- Four-mode reward bindings and pools.
 UPDATE `creature_template` SET `LootId`=`Entry` WHERE `Entry` IN (36678,38431,38585,38586);
