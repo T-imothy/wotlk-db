@@ -1,7 +1,7 @@
 -- ManTech reusable portable mailbox and merchant/repair utility.
 -- Item IDs are intentionally shared by Classic, TBC, and WotLK.
 
-DELETE FROM `item_template` WHERE `entry` IN (90000, 90001);
+DELETE FROM `item_template` WHERE `entry` IN (65000, 65001, 90000, 90001);
 
 DROP TEMPORARY TABLE IF EXISTS `mantech_item_seed`;
 CREATE TEMPORARY TABLE `mantech_item_seed` LIKE `item_template`;
@@ -9,7 +9,7 @@ CREATE TEMPORARY TABLE `mantech_item_seed` LIKE `item_template`;
 -- Reusable version of the native WotLK MOLL-E mailbox.
 INSERT INTO `mantech_item_seed` SELECT * FROM `item_template` WHERE `entry` = 40768;
 UPDATE `mantech_item_seed` SET
-    `entry` = 90000,
+    `entry` = 65000,
     `name` = 'Portable Mailbox',
     `Quality` = 3,
     `Flags` = 32,
@@ -47,7 +47,7 @@ TRUNCATE TABLE `mantech_item_seed`;
 -- exposes only selling and repair, not Jeeves banking services.
 INSERT INTO `mantech_item_seed` SELECT * FROM `item_template` WHERE `entry` = 34113;
 UPDATE `mantech_item_seed` SET
-    `entry` = 90001,
+    `entry` = 65001,
     `name` = 'Portable Repair Hammer',
     `displayid` = 8568,
     `Quality` = 3,
