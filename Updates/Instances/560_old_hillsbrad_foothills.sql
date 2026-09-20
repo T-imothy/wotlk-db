@@ -8,11 +8,7 @@ TODO
 * apple gatherers script + gaurds near apple cart emotes (Tarren Mill)
 * Tarren Mill Horsehand movement/script and interactions
 * Helcular / Kel'Thuzad - possibly missing texts, should stop waypoints when talking
-<<<<<<< HEAD
-* Tarren Mill Fisherman script + emotes
 * Thomas Yance "leaving a customer" 3 different yells
-=======
->>>>>>> 3180a38ea ([ACID] OHF: Tarren Mill Fisherman 18657)
 * Innkeeper Monica missing random emote? "shakes her head at all of the commotion."
 * some creatures seem to be pooled with together with other entrys (patrols in the barracks)
 * Don Carlos, Guerrero Heroic Dummy Template?
