@@ -32341,13 +32341,17 @@ INSERT INTO `creature_ai_scripts` (`id`,`creature_id`,`event_type`,`event_invers
 -- Stormforged Taskmaster 29369
 ('2936901','29369','0','0','100','1025','1000','1000','35000','50000','0','0','11','52701','0','0','0','0','0','0','0','0','0','0','Stormforged Taskmaster - Cast Lightning Charged'),
 ('2936902','29369','0','0','100','1025','9000','12000','15000','18000','0','0','11','51876','1','0','0','0','0','0','0','0','0','0','Stormforged Taskmaster - Cast Storm Strike'),
-('2936903','29369','5','0','30','0','0','0','1','0','0','0','1','30238','0','0','0','0','0','0','0','0','0','0','Stormforged Taskmaster - Chance to Say on Player Kill'),
+('2936903','29369','1','0','35','1','10000','30000','30000','55000','0','0','53','21268','0','0','0','0','0','0','0','0','0','0','Stormforged Taskmaster - (35% chance) START_RELAY_SCRIPT on OOC Timer'),
+('2936904','29369','7','0','100','0','0','0','0','0','0','0','53','21269','0','0','0','0','0','0','0','0','0','0','Stormforged Taskmaster - START_RELAY_SCRIPT on Evade'),
 -- Stormforged Champion 29370
 ('2937001','29370','0','0','100','1025','1000','1000','35000','50000','0','0','11','52701','0','0','0','0','0','0','0','0','0','0','Stormforged Champion - Cast Lightning Charged'),
 -- Stormforged Magus 29374
-('2937401','29374','1','0','100','1','1000','1000','600000','600000','0','0','11','12550','0','0','0','0','0','0','0','0','0','0','Stormforged Magus - Cast Lightning Shield OOC'),
-('2937402','29374','27','0','100','1','12550','1','15000','30000','0','0','11','12550','0','1','0','0','0','0','0','0','0','0','Stormforged Magus - Cast Lightning Shield on Missing Buff'),
-('2937403','29374','0','0','100','1025','4000','9000','16000','19000','0','0','11','32193','4','0','0','0','0','0','0','0','0','0','Stormforged Magus - Cast Lightning Cloud'),
+('2937401','29374','4','0','100','0','0','0','0','0','0','0','52','3','0','0','0','0','0','0','0','0','0','0','Stormforged Magus - Cancel channeling on Aggro'),
+('2937402','29374','1','0','100','1','1000','1000','600000','600000','0','0','11','12550','0','0','0','0','0','0','0','0','0','0','Stormforged Magus - Cast Lightning Shield OOC'),
+('2937403','29374','27','0','100','1','12550','1','15000','30000','0','0','11','12550','0','1','0','0','0','0','0','0','0','0','Stormforged Magus - Cast Lightning Shield on Missing Buff'),
+('2937404','29374','0','0','100','1025','4000','9000','16000','19000','0','0','11','32193','4','0','0','0','0','0','0','0','0','0','Stormforged Magus - Cast Lightning Cloud'),
+('2937405','29374','30','0','100','0','5','29374','0','0','0','0','22','1','0','0','0','0','0','0','0','0','0','0','Stormforged Artificer - Set Phase 1 on Receive AI Event Custom A'),
+('2937406','29374','1','1','100','1','100','6000','20000','30000','0','0','11','54430','0','0','0','0','0','0','0','0','0','0','Stormforged Artificer - Cast Stormforged Beam in OOC (Phase 1)'),
 -- Stormforged Iron Giant 29375
 ('2937501','29375','0','0','100','1025','6000','12000','20000','25000','0','0','11','57741','1','0','0','0','0','0','0','0','0','0','Stormforged Iron Giant - Cast Shockwave'),
 ('2937502','29375','2','0','100','1025','30','0','120000','120000','0','0','11','55512','4','0','0','0','0','0','0','0','0','0','Stormforged Iron Giant - Cast Call of Earth at 30% HP'),
@@ -32356,24 +32360,16 @@ INSERT INTO `creature_ai_scripts` (`id`,`creature_id`,`event_type`,`event_invers
 ('2937505','-524596','11','0','100','0','0','0','0','0','0','0','22','1','0','0','0','0','0','0','0','0','0','0','Stormforged Iron Giant (Guid EAI) - Set Phase 1 on Spawn'),
 ('2937506','-525825','11','0','100','0','0','0','0','0','0','0','22','1','0','0','0','0','0','0','0','0','0','0','Stormforged Iron Giant (Guid EAI) - Set Phase 1 on Spawn'),
 -- Stormforged Artificer 29376
-('2937601','29376','9','0','100','1025','0','40','7000','9000','0','0','11','57580','4','0','0','0','0','0','0','0','0','0','Stormforged Artificer - Cast Lightning Infusion'),
+('2937601','29376','4','0','100','0','0','0','0','0','0','0','52','3','0','0','0','0','0','0','0','0','0','0','Stormforged Artificer - Cancel channeling on Aggro'),
+('2937602','29376','9','0','100','1025','0','40','7000','9000','0','0','11','57580','4','0','0','0','0','0','0','0','0','0','Stormforged Artificer - Cast Lightning Infusion'),
+('2937603','29376','30','0','100','0','5','29376','0','0','0','0','22','1','0','0','0','0','0','0','0','0','0','0','Stormforged Artificer - Set Phase 1 on Receive AI Event Custom A'),
+('2937604','29376','1','1','100','1','100','6000','20000','30000','0','0','11','54464','0','0','0','0','0','0','0','0','0','0','Stormforged Artificer - Cast Shockwave in OOC (Phase 1)'),
 -- Stormforged War Golem 29380
 ('2938001','29380','0','0','100','1025','3000','6000','15000','19000','0','0','11','56352','1','0','0','0','0','0','0','0','0','0','Stormforged War Golem - Cast Storm Punch'),
 -- Stormforged Reaver 29382
 ('2938201','29382','9','0','100','1025','0','10','7000','15000','0','0','11','55825','0','0','0','0','0','0','0','0','0','0','Stormforged Reaver - Cast Thunderstorm'),
 -- Snowdrift Jormungar 29390
-('2939001','29390','11','0','100','0','0','0','0','0','0','0','19','33554432','0','0','0','0','0','0','0','0','0','0','Snowdrift Jormungar - Remove Unselectable Unit Flag on Spawn'),
-('2939002','29390','11','0','100','0','0','0','0','0','0','0','11','29147','0','16','11','33928','0','0','21','0','0','0','Snowdrift Jormungar - Cast Sandworm Submerge Visual and Cast Tunnel Bore Passive and Prevent Combat Movement on Spawn'),
-('2939003','29390','1','0','100','1','1000','1000','1000','1000','0','0','11','29147','0','48','0','0','0','0','0','0','0','0','Snowdrift Jormungar - Cast Sandworm Submerge Visual OOC'),
-('2939004','29390','4','0','100','0','0','0','0','0','0','0','28','0','29147','0','28','0','33928','0','22','1','0','0','Snowdrift Jormungar - Remove Sandworm Submerge Visual and Remove Tunnel Bore Passive and Set Phase 1 on Aggro'),
-('2939005','29390','9','5','100','1025','0','30','2100','4500','0','0','11','50293','1','0','0','0','0','0','0','0','0','0','Snowdrift Jormungar - Cast Corrosive Poison (Phase 1)'),
-('2939006','29390','0','5','100','1025','20400','20400','45000','50000','0','0','11','32738','1','0','0','0','0','0','0','0','0','0','Snowdrift Jormungar - Cast Bore (Phase 1)'),
-('2939007','29390','9','5','100','1025','30','100','500','500','0','0','11','29147','0','16','11','33928','0','0','21','1','0','0','Snowdrift Jormungar - Cast Sandworm Submerge Visual and Cast Tunnel Bore Passive and Set Phase 2 at 30 Yards (Phase 1)'),
-('2939008','29390','9','5','100','1','30','100','500','500','0','0','22','2','0','0','0','0','0','0','0','0','0','0','Snowdrift Jormungar - Enable Combat Movement at 30 Yards (Phase 1)'),
-('2939009','29390','9','3','100','1','0','8','500','500','0','0','28','0','29147','0','28','0','33928','0','21','0','0','0','Snowdrift Jormungar - Remove Sandworm Submerge Visual and Remove Tunnel Bore Passive and Prevent Combat Movement at 8 Yards (Phase 2)'),
-('2939010','29390','9','3','100','1','0','8','500','500','0','0','22','1','0','0','0','0','0','0','0','0','0','0','Snowdrift Jormungar - Set Phase 1 at 8 Yards (Phase 2)'),
-('2939011','29390','7','0','100','0','0','0','0','0','0','0','11','29147','0','21','11','33928','0','0','21','0','0','0','Snowdrift Jormungar - Cast Sandworm Submerge Visual and Cast Tunnel Bore Passive and Prevent Combat Movement on Evade'),
-('2939012','29390','7','0','100','0','0','0','0','0','0','0','22','0','0','0','0','0','0','0','0','0','0','0','Snowdrift Jormungar - Set Phase 0 on Evade'),
+('2939001','29390','9','0','100','1025','0','30','14000','17000','0','0','11','50293','1','0','0','0','0','0','0','0','0','0','Snowdrift Jormungar - Cast Corrosive Poison'),
 -- Land Mine Bunny 29397
 ('2939701','29397','11','0','100','0','0','0','0','0','0','0','11','54402','0','0','0','0','0','0','0','0','0','0','Land Mine Bunny - Cast Land Mine Knockback on Spawn'),
 -- Sparksocket AA Cannon 29399
@@ -43273,8 +43269,7 @@ INSERT INTO `creature_ai_scripts` (`id`,`creature_id`,`event_type`,`event_invers
 ('3766602','37666','0','0','100','1055','7000','12000','12000','16000','0','0','11','70432','5','0','0','0','0','0','0','0','0','0','Darkfallen Tactician - Cast Blood Sap'),
 ('3766603','37666','9','0','100','1055','10','30','16000','24000','0','0','11','70431','0','0','0','0','0','0','0','0','0','0','Darkfallen Tactician - Cast Shadowstep'),
 -- Mutated Abomination 37672
-('3767201','37672','11','0','100','0','0','0','0','0','0','0','11','70385','0','2','11','70405','0','2','0','0','0','0','Mutated Abomination - Cast Abomination Vehicle Power Drain and Mutated Transformation on Spawn'),
-('3767202','37672','8','0','100','30','46598','-1','0','0','0','0','11','72402','0','0','0','0','0','0','0','0','0','0','Mutated Abomination - Cast Mutated Transformation Mirror Name on Ride Vehicle Hardcoded Spell Hit'),
+-- Handled by the Professor Putricide core script and creature spell lists.
 -- Crusader Grimton 37688
 ('3768801','37688','1','0','100','1','5000','5000','10000','10000','0','0','45','11','20','0','0','0','0','0','0','0','0','0','Crusader Grimton - Send AI EVENT F on OOC Timer'),
 -- Frost Freeze Trap 37744
